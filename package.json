@@ -1,0 +1,12 @@
+{
+  "name": "modominator",
+  "version": "0.1.0",
+  "description": "A JavaScript module that scans modern front-end applications for web vulnerabilities.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tanhengyeow/moDOMinator"
+  },
+  "author": "tanhengyeow",
+  "license": "MIT"
+}
