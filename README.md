@@ -37,11 +37,3 @@ Cons of this approach:
 - Users have to code the custom tool from scratch if they are not using [moDOMinator-chrome-extension](https://github.com/tanhengyeow/moDOMinator-chrome-extension).
 
 **-Work in Progress-**
-
-# Installation
-
-Using npm:
-
-```
-$ npm i modominator
-```
