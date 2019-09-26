@@ -1,6 +1,6 @@
 {
   "name": "modominator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A JavaScript module that scans modern front-end applications for web vulnerabilities.",
   "main": "index.js",
   "repository": {
