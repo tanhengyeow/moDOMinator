@@ -27,30 +27,30 @@ class Ui {
     fabElement.id = 'modom-fab';
 
     modomElement.innerHTML = `
-      <div id="modom-content">
-        <div id="modom-content-header"><b>Successful Attacks</b></div>
-        <table id="modom-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Module</th>
-              <th>Payload ID</th>
-              <th>Payload</th>
-              <th>Target</th>
-              <th>Details</th>
+      <div id="modom-content" class="modominator">
+        <div id="modom-content-header" class="modominator"><b>Successful Attacks</b></div>
+        <table id="modom-table" class="modominator">
+          <thead class="modominator">
+            <tr class="modominator">
+              <th class="modominator">#</th>
+              <th class="modominator">Module</th>
+              <th class="modominator">Payload ID</th>
+              <th class="modominator">Payload</th>
+              <th class="modominator">Target</th>
+              <th class="modominator">Details</th>
             </tr>
           </thead>
-          <tbody id="modom-table-body"></tbody>
+          <tbody id="modom-table-body" class="modominator"></tbody>
         </table>
-        <div id="modom-reset-button">Reset Session</div>
+        <div id="modom-reset-button" class="modominator">Reset Session</div>
       </div>
-      <div id="modom-main-bg"></div>
+      <div id="modom-main-bg" class="modominator"></div>
     `;
-    overlayElement.innerHTML = `<div id="modom-overlay-message">moDOMinator is running...</div>`;
+    overlayElement.innerHTML = `<div id="modom-overlay-message" class="modominator">moDOMinator is running...</div>`;
     fabElement.innerHTML = `
-      <span id="modom-fab-button">
-        <div id="modom-fab-badge"></div>
-        <div id="modom-fab-button-text">DOM</div>
+      <span id="modom-fab-button" class="modominator">
+        <div id="modom-fab-badge" class="modominator"></div>
+        <div id="modom-fab-button-text" class="modominator">DOM</div>
       </span>
     `;
 
@@ -70,6 +70,7 @@ class Ui {
     this.counter = 0;
 
     injectCssRules(cssRules);
+    this._updateBadge()
   }
 
   addSuccessLog(successLog: SuccessLog) {
@@ -77,6 +78,7 @@ class Ui {
 
     const tableRow = document.createElement('tr');
     const payload = this.modom.getRawPayload(successLog.module, successLog.payload);
+    tableRow.className = 'modominator';
     tableRow.appendChild(Ui._createTableCell(this.counter.toString()));
     tableRow.appendChild(Ui._createTableCell(successLog.module));
     tableRow.appendChild(Ui._createTableCell(successLog.payload));
@@ -128,6 +130,7 @@ class Ui {
     if (className) {
       cell.className = className;
     }
+    cell.className = 'modominator';
     cell.innerText = content;
     return cell;
   }

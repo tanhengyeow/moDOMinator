@@ -36,6 +36,15 @@ export interface Report {
   d?: string;
 }
 
+export interface AjaxData {
+  // The HTTP method used for the request, in uppercase.
+  method: string;
+  // The request URL.
+  url: string;
+  body: Document | BodyInit | null;
+  headers: Headers;
+}
+
 export interface ModuleDefinition {
   // The name of the module. This should consist only of lowercase alphabets and the dash (-) character.
   name: string;
@@ -47,4 +56,8 @@ export interface ModuleDefinition {
   onInitialize?: (helper: ModuleHelper) => Promise<void>;
   // Performs attack or detection actions given a list of HTML elements that have been added.
   onElementsAdded?: (helper: ModuleHelper, target: string, elements: Element[]) => Promise<void>;
+  // Performs attack or detection actions given a completed XMLHttpRequest.
+  onAjaxResponse?: (helper: ModuleHelper, target: string, request: XMLHttpRequest, data: AjaxData) => Promise<void>;
+  // Performs attack or detection actions given a fetch request and its response.
+  onFetchResponse?: (helper: ModuleHelper, target: string, request: Request, response: Response) => Promise<void>;
 }

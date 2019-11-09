@@ -26,7 +26,7 @@ class ModuleHelper {
    * Creates a report with the given target, payload, and details.
    */
   createReport(target: string | null, payload: string, details?: string): string {
-    return `${this.modom.getSession()}:${this.name}:${target || ''}:${payload}:${details || ''}`;
+    return `${this.modom.getSession()}#$${this.name}#$${target || ''}#$${payload}#$${details || ''}`;
   }
 
   /**

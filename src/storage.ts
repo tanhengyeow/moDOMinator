@@ -42,6 +42,10 @@ class Storage {
     this.successes = {};
   }
 
+  async initialize(): Promise<void> {
+    await database.open();
+  }
+
   /**
    * Adds a new attempt for this session. The attempt information will be persisted into the database.
    * Note that duplicate entries will be ignored.
@@ -149,6 +153,7 @@ class Storage {
 
     this.attempts = {};
     this.successes = {};
+    this.session = newSession;
 
     return newSession;
   }

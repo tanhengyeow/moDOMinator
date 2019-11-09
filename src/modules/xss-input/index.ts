@@ -1,8 +1,9 @@
 import { ModuleDefinition } from '../../types';
 import rawPayloads from './payloads';
 
-function createPayload(rawPayload: string, rawReport: string): string {
-  return rawPayload.replace('#{REPORT}', rawReport);
+function createPayload(payloadId: string, rawReport: string): string {
+  const rawPayload = definition.rawPayloads[payloadId];
+  return rawPayload.replace(/#\{REPORT\}/g, rawReport);
 }
 
 function sleep(ms: number) {
@@ -26,12 +27,10 @@ const definition: ModuleDefinition = {
           return;
         }
 
-        const rawPayload = definition.rawPayloads[payloadId];
-
-        element.value = createPayload(rawPayload, helper.createReport(null, payloadId));
+        element.value = createPayload(payloadId, helper.createReport(null, payloadId));
         const event = new Event('input', { bubbles: true });
         element.dispatchEvent(event);
-        await sleep(166);
+        await sleep(80);
       }
 
       // mark element as attacked

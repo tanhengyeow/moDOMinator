@@ -5,8 +5,10 @@ import Storage from './storage';
 import { ModuleDefinition, Report } from './types';
 import Ui from './ui';
 import { getCurrentUrl } from './utils/dom';
+import { getHostAndPath } from './utils/strings';
 
 import xssInput from './modules/xss-input';
+import xssStored from './modules/xss-stored';
 
 type NotifyHandler = (module: ModuleHelper, target: string) => Promise<void>;
 
@@ -43,6 +45,7 @@ class Modom {
 
     this.isInitializing = true;
 
+    await this.storage.initialize();
     const session = await this.storage.loadCurrentSession();
     if (!session) {
       await this.storage.resetSession();
@@ -117,6 +120,24 @@ class Modom {
           }
           return module.definition.onElementsAdded(module, target, elements);
         });
+      },
+
+      onAjaxResponse: (xmlHttpRequest, data) => {
+        return this._notifyModules(getHostAndPath(data.url), (module, target) => {
+          if (!module.definition.onAjaxResponse) {
+            return Promise.resolve();
+          }
+          return module.definition.onAjaxResponse(module, target, xmlHttpRequest, data);
+        });
+      },
+
+      onFetchResponse: (request, response) => {
+        return this._notifyModules(getHostAndPath(request.url), (module, target) => {
+          if (!module.definition.onFetchResponse) {
+            return Promise.resolve();
+          }
+          return module.definition.onFetchResponse(module, target, request, response);
+        });
       }
     };
   }
@@ -152,7 +173,7 @@ class Modom {
   }
 
   private static _parseRawReport(rawReport: string): Report {
-    const parts = rawReport.split(':');
+    const parts = rawReport.split('#$');
     const report: Report = { s: parts[0], m: parts[1], t: parts[2] || getCurrentUrl(), p: parts[3] };
     if (parts.length > 4 && parts[4].length > 0) {
       report.d = parts[4];
@@ -165,6 +186,7 @@ const modom = new Modom();
 
 // attach built-in modules
 modom.extend(xssInput);
+modom.extend(xssStored);
 
 (window as any).modom = {
   log: function(rawReport: string) {
