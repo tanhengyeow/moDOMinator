@@ -1,39 +1,25 @@
 # moDOMinator
 
-A JavaScript module that scans modern front-end applications for web vulnerabilities.
+A JavaScript module that automatically scans front-end web applications for web vulnerabilities.
 
 # Installation
 
-Using npm:
+Using npm: `npm i modominator`
 
-```
-$ npm i modominator
-```
+Using Yarn: `yarn add modominator`
 
-# Usages
+# Usage
 
-This module can be used standalone or incorporated in custom tools.
+All you need to do is to import the module in the entry point of your application, using `import 'modominator';`.
 
-1. Standalone
+moDOMinator will automatically initialize itself when the DOM content has been loaded.
+This includes setting up the scanners and hooks necessary for the detection of document changes and HTTP requests.
 
-Refer to [moDOMinator-example-apps](https://github.com/tanhengyeow/moDOMinator-example-apps) for examples. Directories with `(standalone)` show how you can use the module by installing it as a npm package.
+# Examples
 
-Pros of this approach:
-- Suitable to test smaller scale websites made up of a few components with little dynamic content.
+If you wish to see examples of the types of vulnerabilities that moDOMinator can detect, you should refer to
+[moDOMinator-example-apps](https://github.com/tanhengyeow/moDOMinator-example-apps).
 
-Cons of this approach:
-- There is little support for state changes. When the app's state changed, DOM elements that are scanned might be repeated or left out (e.g. due to page redirection). As a result, the outcome might not be deterministic as it depends on how the app is written.
-- The module has to be included manually in every component that wish to be scanned.
-
-2. Custom
-
-Refer to [moDOMinator-example-apps](https://github.com/tanhengyeow/moDOMinator-example-apps) for examples. Directories with `(custom)` show how you can use the module in your custom tool to scan for web vulnerabilities. The example apps in the repository uses [moDOMinator-chrome-extension](https://github.com/tanhengyeow/moDOMinator-chrome-extension).
-
-Pros of this approach:
-- Flexible and customizable to your needs.
-- The custom tool may act as an entity to detect state changes to the app, identify new DOM elements rendered and use the module to scan the DOM elements for web vulnerabilities. See how [moDOMinator-chrome-extension](https://github.com/tanhengyeow/moDOMinator-chrome-extension) do this.
-
-Cons of this approach:
-- Users have to code the custom tool from scratch if they are not using [moDOMinator-chrome-extension](https://github.com/tanhengyeow/moDOMinator-chrome-extension).
-
-**-Work in Progress-**
+moDOMinator-example-apps consist of several simple front-end applications built using modern web frameworks such
+as React, Vue.js, and Angular. These sample applications are all vulnerable to a variety of attacks, including
+various forms of Cross-Site Scripting and CSS Injection.
