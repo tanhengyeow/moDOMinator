@@ -8,6 +8,7 @@ import { getCurrentUrl } from './utils/dom';
 import { getHostAndPath } from './utils/strings';
 
 import cssiInput from './modules/cssi-input';
+import cssiStored from './modules/cssi-stored';
 import xssInput from './modules/xss-input';
 import xssStored from './modules/xss-stored';
 
@@ -187,6 +188,7 @@ const modom = new Modom();
 
 // attach built-in modules
 modom.extend(cssiInput);
+modom.extend(cssiStored);
 modom.extend(xssInput);
 modom.extend(xssStored);
 
