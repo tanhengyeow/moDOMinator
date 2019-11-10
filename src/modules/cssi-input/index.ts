@@ -10,15 +10,39 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function findReports(records: MutationRecord[]) {
+  for (const record of records) {
+    const node = record.target;
+    if (!(node instanceof HTMLElement)) {
+      continue;
+    }
+
+    const value = node.style.getPropertyValue('--modom');
+    if (value.length > 0) {
+      (window as any).modom.log(value);
+    }
+  }
+}
+
 const definition: ModuleDefinition = {
-  name: 'xss-input',
-  description: 'Attempts to perform DOM XSS by injecting attack payloads into HTML input elements.',
+  name: 'cssi-input',
+  description: 'Attempts to perform DOM CSSi by injecting attack payloads into HTML input elements.',
   rawPayloads,
+
+  onInitialize: async () => {
+    const mutationObserver = new MutationObserver(function(mutations) {
+      findReports(mutations);
+    });
+
+    mutationObserver.observe(document.body, {
+      attributes : true, attributeFilter : ['style'], subtree: true, childList: true
+    });
+  },
 
   onElementsAdded: async (helper, target, elements) => {
     for (const element of elements) {
       if (!(element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) ||
-          element.dataset.modomXssInput) {
+          element.dataset.modomCssiInput) {
         continue;
       }
 
@@ -31,11 +55,11 @@ const definition: ModuleDefinition = {
         element.value = createPayload(payloadId, helper.createReport(null, payloadId));
         const event = new Event('input', { bubbles: true });
         element.dispatchEvent(event);
-        await sleep(60);
+        await sleep(170);
       }
 
       // mark element as attacked
-      element.dataset.modomXssInput = '1';
+      element.dataset.modomCssiInput = '1';
 
       element.value = '';
       const event = new Event('input', { bubbles: true });

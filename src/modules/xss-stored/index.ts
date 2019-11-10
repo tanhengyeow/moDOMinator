@@ -52,7 +52,7 @@ async function attackJsonPostEndpoint(helper: ModuleHelper, target: string,
     }
 
     for (const payloadId in definition.rawPayloads) {
-      const payload = createPayload(payloadId, helper.createReport(target, payloadId, 'field_' + key));
+      const payload = createPayload(payloadId, helper.createReport(target, payloadId, 'field:' + key));
       const jsonBody: { [key: string]: any } = Object.assign({}, template);
       jsonBody[key] = payload;
 
