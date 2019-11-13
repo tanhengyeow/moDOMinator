@@ -19,6 +19,6 @@
   "devDependencies": {
     "rimraf": "^3.0.0",
     "tslib": "^1.10.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   }
 }
